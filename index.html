@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Soñada · Club de Pádel</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="logo-wrap">
+        <!-- Logo SVG de la pala — podés reemplazarlo por una imagen real -->
+        <svg width="72" height="86" viewBox="0 0 100 120" fill="none">
+          <rect x="44" y="85" width="12" height="28" rx="6" fill="#60a5fa" opacity="0.7"/>
+          <ellipse cx="50" cy="52" rx="32" ry="40" fill="#60a5fa"/>
+          <circle cx="50" cy="42" r="5" fill="#1e3a5f"/>
+          <circle cx="38" cy="55" r="4" fill="#1e3a5f"/>
+          <circle cx="62" cy="55" r="4" fill="#1e3a5f"/>
+          <circle cx="44" cy="68" r="4" fill="#1e3a5f"/>
+          <circle cx="56" cy="68" r="4" fill="#1e3a5f"/>
+        </svg>
+      </div>
+      <p class="hero-eyebrow">Club de Pádel</p>
+      <h1 class="hero-title"><span class="hero-la">La</span> Soñada</h1>
+      <p class="hero-sub">Paraná, Entre Ríos · Pádel de calidad</p>
+      <button class="btn-primary" onclick="scrollAReservas()">Reservar cancha</button>
+      <a href="https://instagram.com/lasonadaclubdepadel" target="_blank" class="hero-ig">
+        @lasonadaclubdepadel
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ INFO CARDS ══ -->
+  <section class="info-section">
+    <h2 class="section-title">¿Cómo funciona?</h2>
+    <div class="cards-grid">
+      <div class="info-card">
+        <span class="card-icono">🕐</span>
+        <h3 class="card-titulo">Horarios</h3>
+        <p class="card-texto">Lun–Sáb de 13:00 a 00:00<br>Martes desde las 14:00</p>
+      </div>
+      <div class="info-card">
+        <span class="card-icono">💰</span>
+        <h3 class="card-titulo">Precios</h3>
+        <p class="card-texto">$25.000 el turno<br>$29.000 con luz artificial</p>
+      </div>
+      <div class="info-card">
+        <span class="card-icono">⏱</span>
+        <h3 class="card-titulo">Turnos</h3>
+        <p class="card-texto">60, 90 o 120 minutos<br>Elegí la duración que más te convenga</p>
+      </div>
+      <div class="info-card">
+        <span class="card-icono">📍</span>
+        <h3 class="card-titulo">Ubicación</h3>
+        <p class="card-texto">Paraná, Entre Ríos<br>Consultanos la dirección por WhatsApp</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RESERVAS ══ -->
+  <section class="reservas-section" id="reservar">
+    <h2 class="section-title">Reservar cancha</h2>
+
+    <!-- Indicador de pasos -->
+    <div class="pasos-indicador">
+      <div class="paso-item activo" id="paso-ind-1">
+        <div class="paso-circulo">1</div>
+        <span class="paso-label">Fecha</span>
+      </div>
+      <div class="paso-item" id="paso-ind-2">
+        <div class="paso-circulo">2</div>
+        <span class="paso-label">Horario</span>
+      </div>
+      <div class="paso-item" id="paso-ind-3">
+        <div class="paso-circulo">3</div>
+        <span class="paso-label">Datos</span>
+      </div>
+      <div class="paso-item" id="paso-ind-4">
+        <div class="paso-circulo">4</div>
+        <span class="paso-label">Listo</span>
+      </div>
+    </div>
+
+    <div class="reserva-box">
+
+      <!-- ── PASO 1: CALENDARIO ── -->
+      <div class="paso-panel activo" id="panel-1">
+        <div class="paso-header" onclick="volverAPaso(1)">
+          <h3 id="titulo-paso-1">📅 Elegí una fecha</h3>
+          <span class="cambiar" id="cambiar-1" style="display:none">Cambiar</span>
+        </div>
+        <div id="contenido-paso-1">
+          <div class="mes-nav">
+            <button onclick="cambiarMes(-1)" id="btn-mes-ant">←</button>
+            <span id="mes-label"></span>
+            <button onclick="cambiarMes(1)" id="btn-mes-sig">→</button>
+          </div>
+          <div class="cal-grid" id="calendario"></div>
+          <p class="cal-leyenda">Podés reservar hasta 14 días de anticipación · Domingos cerrado</p>
+        </div>
+      </div>
+
+      <!-- ── PASO 2: HORARIO ── -->
+      <div class="paso-panel" id="panel-2">
+        <div class="paso-header" onclick="volverAPaso(2)">
+          <h3 id="titulo-paso-2">⏰ Elegí duración y horario</h3>
+          <span class="cambiar" id="cambiar-2" style="display:none">Cambiar</span>
+        </div>
+        <div id="contenido-paso-2" style="display:none">
+          <div class="duracion-selector">
+            <button class="duracion-btn" onclick="elegirDuracion(60)">60 min</button>
+            <button class="duracion-btn seleccionado" onclick="elegirDuracion(90)">90 min</button>
+            <button class="duracion-btn" onclick="elegirDuracion(120)">120 min</button>
+          </div>
+          <div class="slots-grid" id="slots-grid"></div>
+          <p class="cal-leyenda">💡 Con luz artificial — precio diferencial · Invierno: desde 18hs · Verano: desde 20hs</p>
+        </div>
+      </div>
+
+      <!-- ── PASO 3: DATOS ── -->
+      <div class="paso-panel" id="panel-3">
+        <div class="paso-header">
+          <h3>👤 Tus datos</h3>
+        </div>
+        <div id="contenido-paso-3" style="display:none">
+          <div class="precio-resumen" id="precio-resumen"></div>
+          <div class="form-grupo">
+            <label>Nombre completo *</label>
+            <input type="text" id="input-nombre" placeholder="Tu nombre" />
+          </div>
+          <div class="form-grupo">
+            <label>Teléfono *</label>
+            <input type="tel" id="input-telefono" placeholder="+54 343 ..." />
+          </div>
+          <div class="form-grupo">
+            <label>Notas (opcional)</label>
+            <textarea id="input-notas" rows="3" placeholder="Ej: somos 4 personas, necesitamos raquetas..."></textarea>
+          </div>
+          <button class="btn-primary" id="btn-confirmar" onclick="confirmarReserva()">
+            Confirmar por WhatsApp 📲
+          </button>
+          <p class="form-aclaracion">
+            Se abre WhatsApp con todos los datos listos para enviar.
+            El turno queda confirmado cuando el complejo te responda.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── PASO 4: CONFIRMADO ── -->
+      <div class="paso-panel" id="panel-4" style="display:none">
+        <div class="confirmado">
+          <div class="check-grande">✓</div>
+          <h3>¡Reserva enviada!</h3>
+          <p>Tu mensaje fue a WhatsApp con todos los datos.<br>El complejo te confirmará el turno a la brevedad.</p>
+          <div class="resumen-mini" id="resumen-final"></div>
+          <button class="btn-secondary" onclick="reiniciar()">Hacer otra reserva</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <svg width="32" height="46" viewBox="0 0 100 120" fill="none">
+      <rect x="44" y="85" width="12" height="28" rx="6" fill="#60a5fa" opacity="0.7"/>
+      <ellipse cx="50" cy="52" rx="32" ry="40" fill="#60a5fa"/>
+      <circle cx="50" cy="42" r="5" fill="#1e3a5f"/>
+      <circle cx="38" cy="55" r="4" fill="#1e3a5f"/>
+      <circle cx="62" cy="55" r="4" fill="#1e3a5f"/>
+      <circle cx="44" cy="68" r="4" fill="#1e3a5f"/>
+      <circle cx="56" cy="68" r="4" fill="#1e3a5f"/>
+    </svg>
+    <p>La Soñada · Club de Pádel</p>
+    <p>Paraná, Entre Ríos</p>
+    <div class="footer-links">
+      <a href="https://instagram.com/lasonadaclubdepadel" target="_blank">Instagram</a>
+      <a href="mailto:jerooacu@gmail.com">jerooacu@gmail.com</a>
+      <a href="https://wa.me/5493436958831" target="_blank">WhatsApp</a>
+    </div>
+    <p class="footer-copy">© 2025 La Soñada Club de Pádel</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
